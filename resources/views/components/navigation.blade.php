@@ -58,7 +58,7 @@
                                         </li>
                                     @endcan
 
-                                    <form method="POST" action="{{ route('logout.session') }}" class="mt-2 dropdown-item">
+                                    <form method="POST" action="{{ route('logout.session') }}" class="mt-2 dropdown-item bg-transparent">
                                         @csrf
 
                                         <button type="submit" class="btn btn-danger w-100">Log out</button>
