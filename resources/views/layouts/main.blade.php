@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="min-vh-100">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
     @yield ('head')
 </head>
 
-<body class="bg-light-subtle">
+<body class="bg-light-subtle min-vh-100">
     <x-navigation></x-navigation>
 
     @yield ('content')

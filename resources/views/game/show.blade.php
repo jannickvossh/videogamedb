@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <article>
+    <article class="min-vh-100">
         <header class="hero pt-4 pb-4 bg-dark-subtle">
             <div class="container row mx-auto ps-0 pe-0">
                 <div class="col-2">
@@ -102,73 +102,73 @@
                 </div>
             </div>
         </main>
-    </article>
 
-    @can('is_admin')
-        <div class="container pt-4 pb-4">
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary" href="{{ route('edit.game', ['game' => $game->slug]) }}">Edit</a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Delete</button>
-            </div>
-        </div>
-
-        <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title fs-5" id="confirmDeleteLabel">Delete game</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this game? This action cannot be undone.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ route('delete.game', ['game' => $game->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="submit" class="btn btn-primary">Yes, delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endcan
-
-    @can('is_user')
-        <div class="container pt-4 pb-4">
-            @if ($game->users->count() === 0)
-                <a class="btn btn-primary" href="{{ route('create.games.user', ['game' => $game->slug]) }}">Add</a>
-            @else
+        @can('is_admin')
+            <div class="container pt-4 pb-4">
                 <div class="btn-group" role="group">
-                    <a class="btn btn-secondary" href="{{ route('edit.games.user', ['game' => $game->slug]) }}">Edit</a>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Remove</button>
+                    <a class="btn btn-primary" href="{{ route('edit.game', ['game' => $game->slug]) }}">Edit</a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Delete</button>
                 </div>
-            @endif
-        </div>
+            </div>
 
-        <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title fs-5" id="confirmDeleteLabel">Remove game</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to remove this game from your game list?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ route('delete.games.user', ['game' => $game->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
+            <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title fs-5" id="confirmDeleteLabel">Delete game</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this game? This action cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="{{ route('delete.game', ['game' => $game->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="submit" class="btn btn-primary">Yes, remove</button>
-                        </form>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <button type="submit" class="btn btn-primary">Yes, delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endcan
+        @endcan
+
+        @can('is_user')
+            <div class="container pt-4 pb-4">
+                @if ($game->users->count() === 0)
+                    <a class="btn btn-primary" href="{{ route('create.games.user', ['game' => $game->slug]) }}">Add</a>
+                @else
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-secondary" href="{{ route('edit.games.user', ['game' => $game->slug]) }}">Edit</a>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Remove</button>
+                    </div>
+                @endif
+            </div>
+
+            <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title fs-5" id="confirmDeleteLabel">Remove game</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to remove this game from your game list?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="{{ route('delete.games.user', ['game' => $game->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <button type="submit" class="btn btn-primary">Yes, remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endcan
+    </article>
 @endsection
