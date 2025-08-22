@@ -27,8 +27,6 @@ class SessionController extends Controller
             return redirect()->route('games');
         endif;
 
-        dd($attempt);
-
         flash('Wrong password.')->error();
 
         return back();

@@ -7,7 +7,7 @@
 @section('content')
     <article>
         <header class="hero pt-4 pb-4 bg-dark-subtle">
-            <div class="container row mx-auto">
+            <div class="container row mx-auto ps-0 pe-0">
                 <div class="col-2">
                     @if ($game->image)
                         <img src="{{ URL::asset('/game_images/' . $game->image) }}" alt="{{ $game->title }} cover"
@@ -24,7 +24,36 @@
                         @endcan
                     </h1>
 
-                    <p class="mb-1"><strong>Released on:</strong> {{ $game->release_date }}</p>
+                    <p class="mb-3"><strong>Released on:</strong> {{ $game->release_date }}</p>
+
+                    @can('is_user')
+                        @if ($gameUser)
+                            <p class="mb-1"><strong>Have played: </strong>{{ $gameUser->played ? 'Yes' : 'No' }}</p>
+
+                            @if ($gameUser->finished_on)
+                                <p class="mb-1"><strong>Finished on: </strong>{{ $gameUser->finished_on }}</p>
+                            @else
+                                <p class="mb-1"><strong>Have finished: </strong>{{ $gameUser->finished ? 'Yes' : 'No' }}</p>
+                            @endif
+
+                            @if ($gameUser->completed_on)
+                                <p class="mb-1"><strong>Completed on: </strong>{{ $gameUser->completed_on }}</p>
+                            @else
+                                <p class="mb-1"><strong>Have completed: </strong>{{ $gameUser->completed ? 'Yes' : 'No' }}</p>
+                            @endif
+
+                            <p class="mb-1"><strong>Enjoyed: </strong>{{ $gameUser->enjoyed ? 'Yes' : 'No' }}</p>
+
+                            @php
+                                $ownsGameArray = [];
+                                $gameUser->owns_physically ? array_push($ownsGameArray, 'physical') : '';
+                                $gameUser->owns_digitally ? array_push($ownsGameArray, 'digital') : '';
+                                $ownsGameString = ucfirst(implode(" & ", $ownsGameArray) . ' copy');
+                            @endphp
+
+                            <p class="mb-1"><strong>Owns: </strong>{{ ! empty($ownsGameArray) ? $ownsGameString : 'No' }}</p>
+                        @endif
+                    @endcan
                 </div>
             </div>
         </header>
@@ -78,8 +107,8 @@
     @can('is_admin')
         <div class="container pt-4 pb-4">
             <div class="btn-group" role="group">
-                <a class="btn btn-primary" href="{{ route('edit.game', ['game' => $game->slug]) }}">Edit game</a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Delete game</button>
+                <a class="btn btn-primary" href="{{ route('edit.game', ['game' => $game->slug]) }}">Edit</a>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Delete</button>
             </div>
         </div>
 
@@ -110,11 +139,11 @@
     @can('is_user')
         <div class="container pt-4 pb-4">
             @if ($game->users->count() === 0)
-                <a class="btn btn-primary" href="{{ route('create.games.user', ['game' => $game->slug]) }}">Add game</a>
+                <a class="btn btn-primary" href="{{ route('create.games.user', ['game' => $game->slug]) }}">Add</a>
             @else
                 <div class="btn-group" role="group">
-                    <a class="btn btn-secondary" href="{{ route('edit.games.user', ['game' => $game->slug]) }}">Edit game</a>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Remove game</button>
+                    <a class="btn btn-secondary" href="{{ route('edit.games.user', ['game' => $game->slug]) }}">Edit</a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Remove</button>
                 </div>
             @endif
         </div>
