@@ -1,0 +1,68 @@
+.star {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background:
+        radial-gradient(at 70% 31%, var(--bs-red) 29%,#0000 30%),
+        radial-gradient(at 30% 31%, var(--bs-red) 29%,#0000 30%),
+        conic-gradient(from -45deg at 50% 84%, var(--bs-red) 90deg,#0000 0) 
+        bottom/100% 50% no-repeat;
+}
+
+.hero__game-cover {
+    width: 250px;
+    max-width: 100%;
+}
+
+.card-img {
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.game__title {
+    position: relative;
+}
+
+.game__title .star {
+    margin-left: 5px;
+}
+
+.card-title .star {
+    margin-left: 5px;
+}
+
+.game__image--thumbnail {
+    max-height: 100px;
+}
+
+#snackbar {
+    min-width: 300px;
+    margin-left: -150px;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 999;
+    left: 50%;
+    bottom: 30px;
+    transition: opacity 300ms ease-out;
+}
+
+#snackbar.fadeout {
+    opacity: 0;
+}
+
+.nav-search__input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.nav-search__submit {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+nav:has(.pagination) {
+    margin-top: 1.5rem;
+}
